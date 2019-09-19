@@ -800,10 +800,10 @@ subroutine setupozlay(lunin,mype,stats_oz,nlevs,nreal,nobs,&
                  enddo
                  if (netcdf_diag) then
 !                   TBD: Sensitivities must be written out in coordination w/ rest of obs
-!                   call nc_diag_data2d("ObsDiagSave_iuse",     obsdiag_iuse                              )
-!                   call nc_diag_data2d("ObsDiagSave_nldepart", obsdiags(i_oz_ob_type,ibin)%tail%nldepart )
-!                   call nc_diag_data2d("ObsDiagSave_tldepart", obsdiags(i_oz_ob_type,ibin)%tail%tldepart )
-!                   call nc_diag_data2d("ObsDiagSave_obssen",   obsdiags(i_oz_ob_type,ibin)%tail%obssen   )
+                    call nc_diag_data2d("ObsDiagSave_iuse",     obsdiag_iuse                              )
+                    call nc_diag_data2d("ObsDiagSave_nldepart", obsdiags(i_oz_ob_type,ibin)%tail%nldepart )
+                    call nc_diag_data2d("ObsDiagSave_tldepart", obsdiags(i_oz_ob_type,ibin)%tail%tldepart )
+                    call nc_diag_data2d("ObsDiagSave_obssen",   obsdiags(i_oz_ob_type,ibin)%tail%obssen   )
                  endif
               endif
            endif ! (in_curbin)
@@ -944,6 +944,9 @@ subroutine setupozlay(lunin,mype,stats_oz,nlevs,nreal,nobs,&
 
      if (.not. append_diag) then ! don't write headers on append - the module will break?
         call nc_diag_header("date_time",ianldate )
+        call nc_diag_header("Satellite_Sensor", isis)
+        call nc_diag_header("Satellite", dplat(is))
+        call nc_diag_header("Observation_type", obstype)
         call nc_diag_header("Number_of_state_vars", nsdim          )
      endif
 

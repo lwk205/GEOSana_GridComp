@@ -36,7 +36,8 @@
 module read_diag
 
   use kinds, only:  i_kind,r_single,r_kind
-  use nc_diag_read_mod, only: nc_diag_read_get_var,  nc_diag_read_get_global_attr
+  use nc_diag_read_mod, only: nc_diag_read_get_var,  nc_diag_read_get_global_attr, &
+       nc_diag_read_check_var
   use ncdr_dims, only: nc_diag_read_get_dim
   implicit none
 
@@ -716,7 +717,7 @@ subroutine read_radiag_data_nc_init(ftin, header_fix, retrieval)
 ! Declare local variables
   integer(i_kind)                          :: nrecord, ndatum, nangord
   integer(i_kind)                          :: cch, ic, ir, cdatum
-  real(r_kind), allocatable, dimension(:)  :: Latitude, Longitude, Elevation, Obs_Time, Scan_Position, &
+  real(r_single), allocatable, dimension(:)  :: Latitude, Longitude, Elevation, Obs_Time, Scan_Position, &
                                               Sat_Zenith_Angle, Sat_Azimuth_Angle, Sol_Zenith_Angle, Sol_Azimuth_Angle,  &
                                               Sun_Glint_Angle, Water_Fraction, Land_Fraction, Ice_Fraction,  &
                                               Snow_Fraction, Water_Temperature, Land_Temperature, Ice_Temperature,  &
@@ -730,7 +731,7 @@ subroutine read_radiag_data_nc_init(ftin, header_fix, retrieval)
                                               BC_Cloud_Liquid_Water, BC_Lapse_Rate_Squared, BC_Lapse_Rate, BC_Cosine_Latitude_times_Node,  &
                                               BC_Sine_Latitude,BC_Emissivity,BC_Fixed_Scan_Position
   integer(i_kind), allocatable, dimension(:)  :: Channel_Index, Land_Type_Index
-  real(r_kind), allocatable, dimension(:,:)   :: BC_angord ! (nobs, BC_angord_arr_dim) ;
+  real(r_single), allocatable, dimension(:,:)   :: BC_angord ! (nobs, BC_angord_arr_dim) ;
 
   real(r_kind)                                :: clat, clon
 
@@ -803,7 +804,8 @@ subroutine read_radiag_data_nc_init(ftin, header_fix, retrieval)
   call nc_diag_read_get_var('dtp_avh', dtp_avh)
   call nc_diag_read_get_var('Vegetation_Fraction', Vegetation_Fraction)
   call nc_diag_read_get_var('Snow_Depth', Snow_Depth)
-  call nc_diag_read_get_var('tpwc_amsua', tpwc_amsua)
+  if ( nc_diag_read_check_var('tpwc_amsua') ) &
+       call nc_diag_read_get_var('tpwc_amsua', tpwc_amsua)
   call nc_diag_read_get_var('clw_guess_retrieval', clw_guess_retrieval)
   call nc_diag_read_get_var('Sfc_Wind_Speed', Sfc_Wind_Speed)
   call nc_diag_read_get_var('Cloud_Frac', Cloud_Frac)

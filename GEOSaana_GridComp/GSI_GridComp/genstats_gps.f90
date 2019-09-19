@@ -752,6 +752,7 @@ subroutine contents_netcdf_diag_
 
   integer(i_kind)                  :: obstype, obssubtype
   type(sparr2) :: dhx_dx
+  integer ioff1
 
 ! Observation class
   character(7),parameter     :: obsclass = '    gps'
@@ -780,6 +781,7 @@ subroutine contents_netcdf_diag_
            call nc_diag_metadata("Obs_Minus_Forecast_adjusted",           sngl(gps_allptr%rdiag(17))*sngl(gps_allptr%rdiag(5)) )
            call nc_diag_metadata("Obs_Minus_Forecast_unadjusted",         sngl(gps_allptr%rdiag(17))*sngl(gps_allptr%rdiag(5)) )
            call nc_diag_metadata("GPS_Type",                              sngl(gps_allptr%rdiag(20))   )
+           call nc_diag_metadata("Vertical_Grid_Location",                sngl(gps_allptr%rdiag(19))   )
            call nc_diag_metadata("Temperature_at_Obs_Location",           sngl(gps_allptr%rdiag(18))   )
            call nc_diag_metadata("Specific_Humidity_at_Obs_Location",     sngl(gps_allptr%rdiag(21))   )
 
@@ -792,26 +794,26 @@ subroutine contents_netcdf_diag_
 
 !           call nc_diag_data2d("T_Jacobian",                              gps_allptr%mmpoint%jac_t             )
            if (lobsdiagsave .and. associated(obsptr)) then
-               ioff = mreal
+               ioff1 = mreal
                do jj=1,miter
-                  ioff=ioff+1
-                  if (gps_allptr%rdiag(ioff) == one) then
+                  ioff1=ioff1+1
+                  if (gps_allptr%rdiag(ioff1) == one) then
                      obsdiag_iuse(jj) = one
                   else
                      obsdiag_iuse(jj) = -one
                   endif
                enddo
                do jj=1,miter+1
-                  ioff=ioff+1
-                  obsdiag_nldepart = gps_allptr%rdiag(ioff) 
+                  ioff1=ioff1+1
+                  obsdiag_nldepart = gps_allptr%rdiag(ioff1) 
                enddo
                do jj=1,miter
-                  ioff=ioff+1
-                  obsdiag_tldepart = gps_allptr%rdiag(ioff) 
+                  ioff1=ioff1+1
+                  obsdiag_tldepart = gps_allptr%rdiag(ioff1) 
                enddo
                do jj=1,miter
-                  ioff=ioff+1
-                  obsdiag_obssen   = gps_allptr%rdiag(ioff) 
+                  ioff1=ioff1+1
+                  obsdiag_obssen   = gps_allptr%rdiag(ioff1) 
                enddo
     
                call nc_diag_data2d("ObsDiagSave_iuse",     obsdiag_iuse     )
