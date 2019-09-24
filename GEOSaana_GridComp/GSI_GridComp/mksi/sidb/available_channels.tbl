@@ -21,6 +21,7 @@
 #  06Jan2017 Todling - shift seviri chn numbers according to gsi r84191 now from 4-11
 #                      airs281 -> airs; iasi616 -> iasi
 #  20Nov2018 McCarty - Add NOAA-20 
+#  24Sep2019 Meta    - Add MetOp-C AMSU-A and MHS
 #
 # Information in this list tells the avaibility of given channels at a given
 # time, to be used (at least) in the passive mode for the GSI.
@@ -149,6 +150,12 @@ metop-b 20130213 000000  21001231 240000  hirs4 19  1 2 3 4 5 6 7 8 9 10 11 12 1
 metop-b 20130213 000000  21001231 240000  amsua 15  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15            
 metop-b 20130213 000000  21001231 240000  mhs    5  1 2 3 4 5         
 metop-b 20130219 000000  21001231 240000  avhrr3 3      3 4 5         
+
+# METOP-C  AM  2018-07-11               2019-09-17
+# SATID: 005
+metop-c 20190917 000000  21001231 240000  amsua 15  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15            
+metop-c 20190917 000000  21001231 240000  mhs    5  1 2 3 4 5         
+
 
 # EOS Aqua AM  2002-05-04
 
