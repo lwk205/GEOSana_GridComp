@@ -180,4 +180,6 @@ conv_q
 conv_gps
 conv_tcp
 conv_pw
+conv_spd
+conv_sst
 ::
