@@ -183,7 +183,6 @@ use Env;                 # make env vars readily available
 use File::Basename;      # for basename(), dirname()
 use File::Copy "cp";     # for cp()
 use Getopt::Long;        # load module with GetOptions function
-use Shell qw(cat rm);    # cat and rm commands
 use Time::Local;         # time functions
 use FindBin;             # so we can find where this script resides
 
@@ -784,7 +783,7 @@ sub init {
       $cmd = "cat `ls anavinfo.hold $fvwork/gmao_global_anavinfo_rcov.rc`>>anavinfo";
       print " $cmd\n";
       $rc_ignore = system($cmd);
-      if ( -e "anavinfo" ) {rm("anavinfo.hold")};
+      if ( -e "anavinfo" ) {unlink("anavinfo.hold")};
    }
 
 #  Initialize sat-bias file (link or prepare to create one)
@@ -1022,7 +1021,7 @@ sub setobs {
   print "pbfile = $pbfile size = $size_pb\n";
   if ( -z $pbfile ) { 
       print "Removing 0 length $pbfile\n";
-      rm("$pbfile"); 
+      unlink("$pbfile"); 
   }
 
   $cmd = "ln -s $fvwork Obsloc";
@@ -1043,7 +1042,7 @@ sub setup_4dvar {
 
 # Edit resource files for ADM/TLM
 # -------------------------------
-  rm("sed_file");
+  unlink("sed_file");
   open(SED_FILE,">sed_file") or
   die ">>> ERROR <<< cannot write sed_file";
   print  SED_FILE <<"EOF";
@@ -1056,7 +1055,7 @@ s/>>>NDAY<<</$ndays/1
 s/>>>NCSUFFIX<<</$ncsuffix/1
 EOF
 
-  rm("ccmrun.namelist");
+  unlink("ccmrun.namelist");
   $cmd = "sed -f sed_file ./ccmrun.namelist.tmpl > ./ccmrun.namelist";
   print " $cmd\n";
   $rc_ignore = system($cmd);
@@ -1178,7 +1177,7 @@ sub ana {
            my ($pnymd, $pnhms) = ( tick($nymd,$nhms,-48*3600) ); # tick time to previous day
            my $phh = substr($pnhms,0,2);
            if (-e "$DIURNAL_SATBIAS/$expid.ana.satbias.${pnymd}_${phh}z.txt" ) {
-               rm("$DIURNAL_SATBIAS/$expid.ana.satbias.${pnymd}_${phh}z.txt");
+               unlink("$DIURNAL_SATBIAS/$expid.ana.satbias.${pnymd}_${phh}z.txt");
            }
       }
 
@@ -1195,7 +1194,7 @@ sub ana {
            my ($pnymd, $pnhms) = ( tick($nymd,$nhms,-48*3600) ); # tick time to previous day
            my $phh = substr($pnhms,0,2);
            if (-e "$DIURNAL_SATBIAS/$expid.ana.satbiaspc.${pnymd}_${phh}z.txt" ) {
-               rm("$DIURNAL_SATBIAS/$expid.ana.satbiaspc.${pnymd}_${phh}z.txt");
+               unlink("$DIURNAL_SATBIAS/$expid.ana.satbiaspc.${pnymd}_${phh}z.txt");
            }
       }
 
@@ -1276,7 +1275,7 @@ sub ana {
          addxinc($nymd,$nhms);
          # in this case, GSI should not write out the full analysis ...
          # if, for some reason it does, get rid of it
-         if ( -e $anaout ) {rm("$anaout")};
+         if ( -e $anaout ) {unlink("$anaout")};
      }
      # now move all analysis increments to main work directory
      @lsxinc =  glob("*xinc.eta.*.$ncsuffix");
@@ -1818,7 +1817,7 @@ sub sac {
       my ($pnymd, $pnhms) = ( tick($nymd,$nhms,-48*3600) ); # tick time to previous day
       my $phh = substr($pnhms,0,2);
       if ( -e "$DIURNAL_SATBIAS/$expid.ana.satbang.${pnymd}_${phh}z.txt") {
-           rm("$DIURNAL_SATBIAS/$expid.ana.satbang.${pnymd}_${phh}z.txt");
+           unlink("$DIURNAL_SATBIAS/$expid.ana.satbang.${pnymd}_${phh}z.txt");
       }
   }
 
