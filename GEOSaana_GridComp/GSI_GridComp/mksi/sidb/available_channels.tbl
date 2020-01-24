@@ -21,7 +21,7 @@
 #  06Jan2017 Todling - shift seviri chn numbers according to gsi r84191 now from 4-11
 #                      airs281 -> airs; iasi616 -> iasi
 #  20Nov2018 McCarty - Add NOAA-20 
-#  24Sep2019 Meta    - Add MetOp-C AMSU-A and MHS
+#  24Sep2019 Meta    - Add MetOp-C AMSU-A and MHS - start date reflects data start in regular AMSU-A/MHS files
 #
 # Information in this list tells the avaibility of given channels at a given
 # time, to be used (at least) in the passive mode for the GSI.

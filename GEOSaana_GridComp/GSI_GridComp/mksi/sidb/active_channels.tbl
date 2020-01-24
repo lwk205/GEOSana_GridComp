@@ -85,7 +85,10 @@
 #                        previously)
 #  17May2019 Sienkiewicz - turn off SNPP CrIS mid-band channels starting 20190326 18z due to failure
 #  28Jun2019 Sienkiewicz - SNPP CrIS switch to side B as of 20190624 18z, turn off (passive) during calibration testing
+#  18Nov2019 Sienkiewicz - MetOp-C AMSU-A and MHS for testing - start date reflects data start in regular AMSU-A/MHS files
 #
+#  12Dec2019 Sienkiewicz - MetOp-A MHS ch 2 noisy, turn off all channels since
+#                            it is used for QC
 #=================
 #  For reference: http://www.emc.ncep.noaa.gov/mmb/data_processing/Satellite_Historical_Documentation.htm
 #                 http://geos5.org/wiki/index.php?title=Talk:GEOS-5_ADAS_Radiance_Monitoring
@@ -388,7 +391,8 @@ metop-a 20070521 000000  20090115 060000  amsua 11        4 5 6 7 8 9 10 11 12 1
 metop-a 20090115 120000  20140829 240000  amsua 10        4 5 6   8 9 10 11 12 13 14            # ch7 noisy
 metop-a 20140830 000000  21001231 240000  amsua  9        4 5 6     9 10 11 12 13 14            # ch7,8 noisy
 
-metop-a 20070521 000000  21001231 240000  mhs    5  1 2 3 4 5              #
+metop-a 20070521 000000  20190914 240000  mhs    5  1 2 3 4 5              #
+metop-a 20190915 000000  21001231 240000  mhs    0                         # ch 2 noisy
 
 metop-a 20080801 000000  21001231 240000  avhrr3 2        4 5           #
 
@@ -402,6 +406,12 @@ metop-b 20160925 000000  21001231 240000  amsua  8              7 8 9 10 11 12 1
 metop-b 20130213 000000  21001231 240000  mhs    5  1 2 3 4 5                                  # active for e512a_rt-parallel testing
  
 metop-b 20130213 000000  21001231 240000  avhrr3 0                   #
+
+# METOP-C     # using start data of data in regular data files - can modify this to reflect additional data availability
+#=========
+metop-c 20190917 000000  21001231 240000  amsua 11        4 5 6 7 8 9 10 11 12 13 14           # active for parallel testing
+
+metop-c 20190917 000000  21001231 240000  mhs    5  1 2 3 4 5                                  # active for parallel testing
 #======
 # SSM/I
 #======
